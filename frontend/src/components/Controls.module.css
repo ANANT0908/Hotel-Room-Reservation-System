@@ -1,0 +1,200 @@
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+}
+
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+.label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.countSelector {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background-color: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.countButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.countButton:hover {
+  background-color: var(--bg-hover);
+}
+
+.countButton.active {
+  background-color: var(--accent-dim);
+  color: var(--accent-light);
+  border-bottom: 2px solid var(--accent);
+}
+
+.bookButton {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  background-color: var(--accent);
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(124, 109, 250, 0.3);
+}
+
+.bookButton:hover:not(:disabled) {
+  box-shadow: 0 8px 24px rgba(124, 109, 250, 0.5);
+  transform: translateY(-2px);
+}
+
+.bookButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.infoChip {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--accent-dim);
+}
+
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.randomButton,
+.resetButton {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.randomButton {
+  background-color: transparent;
+  color: var(--amber);
+  border-color: var(--amber-border);
+  border: 1px solid var(--amber-border);
+}
+
+.randomButton:hover:not(:disabled) {
+  background-color: var(--amber-dim);
+}
+
+.randomButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.resetButton {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+}
+
+.resetButton:hover:not(:disabled) {
+  background-color: var(--bg-hover);
+}
+
+.resetButton.confirm {
+  background-color: var(--red-dim);
+  color: var(--red);
+  border-color: var(--red-border);
+}
+
+.resetButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .controls {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .infoChip {
+    display: none;
+  }
+
+  .bookButton,
+  .randomButton,
+  .resetButton {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .leftGroup,
+  .rightGroup {
+    width: 100%;
+  }
+
+  .bookButton {
+    width: 100%;
+  }
+
+  .randomButton,
+  .resetButton {
+    flex: 1;
+  }
+}

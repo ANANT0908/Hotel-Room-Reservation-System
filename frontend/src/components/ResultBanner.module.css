@@ -1,0 +1,154 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin: 12px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.success {
+  background-color: var(--green-dim);
+  border-color: var(--green-border);
+}
+
+.error {
+  background-color: var(--red-dim);
+  border-color: var(--red-border);
+}
+
+.icon {
+  flex: 0 0 auto;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.success .icon {
+  color: var(--green);
+}
+
+.error .icon {
+  color: var(--red);
+}
+
+.content {
+  flex: 1;
+}
+
+.headline {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.roomTags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.message {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.travelTime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.label {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.dismiss {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dismiss:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner {
+    margin: 12px 16px;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .headline {
+    font-size: 12px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+
+  .number {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .banner {
+    flex-wrap: wrap;
+  }
+
+  .content {
+    flex-basis: 100%;
+    order: 2;
+  }
+
+  .travelTime {
+    flex-basis: 100%;
+    order: 3;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .dismiss {
+    order: 1;
+  }
+}
