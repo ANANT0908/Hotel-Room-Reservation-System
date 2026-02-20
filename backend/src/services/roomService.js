@@ -46,6 +46,13 @@ class RoomService {
         throw error;
       }
 
+      // Enforce 5-room limit
+      if (count > 5) {
+        const error = new Error('A single guest can book up to 5 rooms at a time.');
+        error.statusCode = 400;
+        throw error;
+      }
+
       // Select algorithm based on mode
       const algorithm = bookingMode === 'random' ? findRandomRooms : findOptimalRooms;
       const result = algorithm(availableRooms, count);
@@ -96,6 +103,13 @@ class RoomService {
     try {
       if (!roomNumbers || roomNumbers.length === 0) {
         const error = new Error('No rooms selected for booking');
+        error.statusCode = 400;
+        throw error;
+      }
+
+      // Enforce 5-room limit
+      if (roomNumbers.length > 5) {
+        const error = new Error('A single guest can book up to 5 rooms at a time.');
         error.statusCode = 400;
         throw error;
       }

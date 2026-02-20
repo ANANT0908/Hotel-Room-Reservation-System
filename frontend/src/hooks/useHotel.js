@@ -12,6 +12,7 @@ export const useHotel = () => {
   const [lastBooking, setLastBooking] = useState(null);
   const [newlyBookedIds, setNewlyBookedIds] = useState(new Set());
   const [selectedRooms, setSelectedRooms] = useState(new Set());
+  const [count, setCount] = useState(1);
 
   // Actions
   const fetchRooms = async (silent = false) => {
@@ -58,11 +59,33 @@ export const useHotel = () => {
     }
   };
 
+  const autoBookRooms = async (count) => {
+    try {
+      setActionLoading('book');
+      setError(null);
+      const data = await roomsApi.book(count, 'optimal');
+      setLastBooking(data.booking);
+      setNewlyBookedIds(new Set(data.booking.rooms));
+      setSelectedRooms(new Set());
+
+      // Refresh rooms and bookings
+      await fetchRooms(true);
+      await fetchBookings();
+
+      // Clear newly booked indicator after 3 seconds
+      setTimeout(() => setNewlyBookedIds(new Set()), 3000);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
   const toggleRoomSelection = (roomNumber) => {
     const newSelected = new Set(selectedRooms);
     if (newSelected.has(roomNumber)) {
       newSelected.delete(roomNumber);
-    } else {
+    } else if (newSelected.size < count) {
       newSelected.add(roomNumber);
     }
     setSelectedRooms(newSelected);
@@ -139,8 +162,11 @@ export const useHotel = () => {
     lastBooking,
     newlyBookedIds,
     selectedRooms,
+    count,
+    setCount,
     clearError,
     bookRooms,
+    autoBookRooms,
     toggleRoomSelection,
     clearSelection,
     resetAll,

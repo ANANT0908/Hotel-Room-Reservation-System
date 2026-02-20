@@ -24,7 +24,7 @@ export default function ResultBanner({ booking, error, onDismiss }) {
       <div className={styles.icon}>✓</div>
       <div className={styles.content}>
         <p className={styles.headline}>
-          {booking.rooms.length} room{booking.rooms.length !== 1 ? 's' : ''} booked · {booking.floorLabel}
+          {booking.rooms.length} room{booking.rooms.length !== 1 ? 's' : ''} booked · {booking.floorLabel} · {booking.travelTime} min
         </p>
         <div className={styles.roomTags}>
           {booking.rooms.map((roomNumber) => (

@@ -1,17 +1,29 @@
 // Travel time between exactly two room objects
+// Lift/Stairs are at the left (position 1)
 function travelTimeBetween(roomA, roomB) {
-  const horizontal = Math.abs(roomA.position - roomB.position);
+  if (roomA.floor === roomB.floor) {
+    return Math.abs(roomA.position - roomB.position);
+  }
+  // If floors are different, must go to lift (at position 1)
   const vertical = Math.abs(roomA.floor - roomB.floor) * 2;
-  return horizontal + vertical;
+  const toLiftA = roomA.position - 1;
+  const toLiftB = roomB.position - 1;
+  return toLiftA + vertical + toLiftB;
 }
 
-// Total travel time of a group (first to last when sorted by floor, then position)
+// Total travel time of a group
+// For cross-floor bookings, it's the travel time between the two furthest rooms
 function groupTravelTime(rooms) {
   if (rooms.length <= 1) return 0;
-  const sorted = [...rooms].sort((a, b) => a.floor - b.floor || a.position - b.position);
-  const first = sorted[0];
-  const last = sorted[sorted.length - 1];
-  return travelTimeBetween(first, last);
+
+  let maxTime = 0;
+  for (let i = 0; i < rooms.length; i++) {
+    for (let j = i + 1; j < rooms.length; j++) {
+      const time = travelTimeBetween(rooms[i], rooms[j]);
+      if (time > maxTime) maxTime = time;
+    }
+  }
+  return maxTime;
 }
 
 // All combinations of size k from array (backtracking)
@@ -57,9 +69,10 @@ function findOptimalRooms(availableRooms, count) {
     return null;
   }
 
-  let bestResult = null;
+  // Cap count at 5 as per rules
+  const k = Math.min(count, 5);
 
-  // Step 1: Same-floor search (highest priority)
+  // Group rooms by floor
   const roomsByFloor = {};
   availableRooms.forEach((room) => {
     if (!roomsByFloor[room.floor]) {
@@ -68,95 +81,91 @@ function findOptimalRooms(availableRooms, count) {
     roomsByFloor[room.floor].push(room);
   });
 
+  // Step 1: Same-floor search (Priority 2)
+  let bestSameFloor = null;
+  let minSameFloorTime = Infinity;
+
   for (const floorStr in roomsByFloor) {
-    const floor = parseInt(floorStr);
-    const floorRooms = roomsByFloor[floor];
-
-    if (floorRooms.length >= count) {
-      const combinations = getCombinations(floorRooms, count);
-
-      let bestFloorCombo = null;
-      let bestFloorTime = Infinity;
-
-      for (const combo of combinations) {
+    const floorRooms = roomsByFloor[floorStr].sort((a, b) => a.position - b.position);
+    if (floorRooms.length >= k) {
+      // Find k contiguous available rooms on this floor that minimize span
+      for (let i = 0; i <= floorRooms.length - k; i++) {
+        const combo = floorRooms.slice(i, i + k);
         const time = groupTravelTime(combo);
-        if (time < bestFloorTime || (time === bestFloorTime && isLowerSet(combo, bestFloorCombo))) {
-          bestFloorCombo = combo;
-          bestFloorTime = time;
-        }
-      }
-
-      if (bestFloorCombo) {
-        bestResult = {
-          rooms: bestFloorCombo,
-          travelTime: bestFloorTime,
-        };
-      }
-    }
-  }
-
-  // Return early if same-floor result found
-  if (bestResult) {
-    return bestResult;
-  }
-
-  // Step 2: Cross-floor sliding window
-  const distinctFloors = Object.keys(roomsByFloor)
-    .map((f) => parseInt(f))
-    .sort((a, b) => a - b);
-
-  if (distinctFloors.length < 2) {
-    return null;
-  }
-
-  for (let winSize = 2; winSize <= Math.min(distinctFloors.length, 5); winSize++) {
-    let foundForSize = false;
-
-    for (let i = 0; i <= distinctFloors.length - winSize; i++) {
-      const windowFloors = distinctFloors.slice(i, i + winSize);
-      const pooledRooms = [];
-
-      for (const floor of windowFloors) {
-        pooledRooms.push(...roomsByFloor[floor]);
-      }
-
-      if (pooledRooms.length >= count) {
-        const combinations = getCombinations(pooledRooms, count);
-
-        let windowBestCombo = null;
-        let windowBestTime = Infinity;
-
-        for (const combo of combinations) {
-          const time = groupTravelTime(combo);
-          if (time < windowBestTime || (time === windowBestTime && isLowerSet(combo, windowBestCombo))) {
-            windowBestCombo = combo;
-            windowBestTime = time;
-          }
-        }
-
-        if (windowBestCombo) {
-          if (
-            !bestResult ||
-            windowBestTime < bestResult.travelTime ||
-            (windowBestTime === bestResult.travelTime && isLowerSet(windowBestCombo, bestResult.rooms))
-          ) {
-            bestResult = {
-              rooms: windowBestCombo,
-              travelTime: windowBestTime,
-            };
-            foundForSize = true;
-          }
+        if (time < minSameFloorTime || (time === minSameFloorTime && isLowerSet(combo, bestSameFloor))) {
+          minSameFloorTime = time;
+          bestSameFloor = combo;
         }
       }
     }
+  }
 
-    // Break out after first window size that yields a result
-    if (foundForSize) {
-      break;
+  if (bestSameFloor) {
+    return {
+      rooms: bestSameFloor,
+      travelTime: minSameFloorTime,
+    };
+  }
+
+  // Step 2: Cross-floor search (Priority 3/4)
+  // For cross-floor, we only really care about rooms closer to the lift
+  // because larger positions only increase travel time to other floors.
+  // We take the first 'k' rooms from each floor to reduce search space (max 50 rooms).
+  const candidateRooms = [];
+  const floors = Object.keys(roomsByFloor).sort((a, b) => a - b);
+  for (const f of floors) {
+    const floorRooms = roomsByFloor[f].sort((a, b) => a.position - b.position);
+    candidateRooms.push(...floorRooms.slice(0, k));
+  }
+
+  let bestCrossResult = null;
+  let minCrossTime = Infinity;
+
+  function findBestCombo(start, currentCombo, currentMaxTime) {
+    if (currentCombo.length === k) {
+      if (currentMaxTime < minCrossTime || (currentMaxTime === minCrossTime && isLowerSet(currentCombo, bestCrossResult))) {
+        minCrossTime = currentMaxTime;
+        bestCrossResult = [...currentCombo];
+      }
+      return;
+    }
+
+    if (start >= candidateRooms.length) return;
+
+    // Pruning: if we don't have enough rooms left
+    if (candidateRooms.length - start < k - currentCombo.length) return;
+
+    for (let i = start; i < candidateRooms.length; i++) {
+      const nextRoom = candidateRooms[i];
+      let nextMaxTime = currentMaxTime;
+
+      // Calculate new max time if we add this room
+      for (const r of currentCombo) {
+        const t = travelTimeBetween(r, nextRoom);
+        if (t > nextMaxTime) nextMaxTime = t;
+      }
+
+      // Pruning: if current combo already exceeds best time
+      if (nextMaxTime > minCrossTime) continue;
+
+      currentCombo.push(nextRoom);
+      findBestCombo(i + 1, currentCombo, nextMaxTime);
+      currentCombo.pop();
     }
   }
 
-  return bestResult;
+  // Limit search if candidateRooms is still large (though it should be <= 50)
+  // But with pruning it should be very fast.
+  findBestCombo(0, [], 0);
+
+  if (bestCrossResult) {
+    return {
+      rooms: bestCrossResult,
+      travelTime: minCrossTime,
+    };
+  }
+
+  return null;
 }
 
 // Random selection of available rooms
