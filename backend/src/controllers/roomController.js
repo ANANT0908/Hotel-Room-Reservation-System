@@ -28,8 +28,8 @@ exports.bookRooms = async (req, res, next) => {
       });
     }
 
-    const { count } = req.body;
-    const booking = await roomService.bookRooms(count);
+    const { count, mode } = req.body;
+    const booking = await roomService.bookRooms(count, mode || 'optimal');
 
     res.status(201).json({
       success: true,
@@ -37,6 +37,29 @@ exports.bookRooms = async (req, res, next) => {
     });
   } catch (error) {
     logger.error(`POST /api/rooms/book error: ${error.message}`);
+    next(error);
+  }
+};
+
+exports.bookSelected = async (req, res, next) => {
+  try {
+    const { roomNumbers } = req.body;
+
+    if (!roomNumbers || !Array.isArray(roomNumbers) || roomNumbers.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'roomNumbers must be a non-empty array',
+      });
+    }
+
+    const booking = await roomService.bookSelected(roomNumbers);
+
+    res.status(201).json({
+      success: true,
+      booking,
+    });
+  } catch (error) {
+    logger.error(`POST /api/rooms/book-selected error: ${error.message}`);
     next(error);
   }
 };

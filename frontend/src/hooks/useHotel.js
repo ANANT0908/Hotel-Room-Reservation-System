@@ -7,10 +7,11 @@ export const useHotel = () => {
   const [stats, setStats] = useState({ available: 0, occupied: 0, booked: 0, total: 97 });
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [actionLoading, setActionLoading] = useState(null); // 'book' | 'random' | 'reset'
+  const [actionLoading, setActionLoading] = useState(null); // 'book' | 'reset'
   const [error, setError] = useState(null);
   const [lastBooking, setLastBooking] = useState(null);
   const [newlyBookedIds, setNewlyBookedIds] = useState(new Set());
+  const [selectedRooms, setSelectedRooms] = useState(new Set());
 
   // Actions
   const fetchRooms = async (silent = false) => {
@@ -35,13 +36,14 @@ export const useHotel = () => {
     }
   };
 
-  const bookRooms = async (count) => {
+  const bookRooms = async (selectedRoomNumbers) => {
     try {
       setActionLoading('book');
       setError(null);
-      const data = await roomsApi.book(count);
+      const data = await roomsApi.bookSelected(selectedRoomNumbers);
       setLastBooking(data.booking);
       setNewlyBookedIds(new Set(data.booking.rooms));
+      setSelectedRooms(new Set()); // Clear selection after booking
 
       // Refresh rooms and bookings
       await fetchRooms(true);
@@ -56,20 +58,17 @@ export const useHotel = () => {
     }
   };
 
-  const randomOccupancy = async () => {
-    try {
-      setActionLoading('random');
-      setError(null);
-      await roomsApi.random();
-
-      // Refresh rooms
-      await fetchRooms(true);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setActionLoading(null);
+  const toggleRoomSelection = (roomNumber) => {
+    const newSelected = new Set(selectedRooms);
+    if (newSelected.has(roomNumber)) {
+      newSelected.delete(roomNumber);
+    } else {
+      newSelected.add(roomNumber);
     }
+    setSelectedRooms(newSelected);
   };
+
+  const clearSelection = () => setSelectedRooms(new Set());
 
   const resetAll = async () => {
     try {
@@ -90,7 +89,30 @@ export const useHotel = () => {
     }
   };
 
-  const clearError = () => setError(null);
+  const randomizeOccupancy = async () => {
+    try {
+      setActionLoading('random');
+      setError(null);
+      await roomsApi.random();
+
+      setLastBooking(null);
+      setNewlyBookedIds(new Set());
+      setSelectedRooms(new Set());
+
+      // Refresh rooms and bookings
+      await fetchRooms(true);
+      await fetchBookings();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const clearError = () => {
+    setError(null);
+    setLastBooking(null);
+  };
 
   // On mount: fetch rooms and bookings
   useEffect(() => {
@@ -116,9 +138,12 @@ export const useHotel = () => {
     error,
     lastBooking,
     newlyBookedIds,
+    selectedRooms,
     clearError,
     bookRooms,
-    randomOccupancy,
+    toggleRoomSelection,
+    clearSelection,
     resetAll,
+    randomizeOccupancy,
   };
 };

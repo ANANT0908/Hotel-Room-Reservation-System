@@ -34,10 +34,6 @@ export default function ResultBanner({ booking, error, onDismiss }) {
           ))}
         </div>
       </div>
-      <div className={styles.travelTime}>
-        <div className={styles.number}>{booking.travelTime}</div>
-        <div className={styles.label}>min</div>
-      </div>
       <button className={styles.dismiss} onClick={onDismiss}>
         ✕
       </button>

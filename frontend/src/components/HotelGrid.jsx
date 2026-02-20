@@ -1,7 +1,7 @@
 import RoomCell from './RoomCell';
 import styles from './HotelGrid.module.css';
 
-export default function HotelGrid({ rooms, newlyBookedIds, loading }) {
+export default function HotelGrid({ rooms, newlyBookedIds, loading, selectedRooms, onToggleSelect }) {
   // Group rooms by floor
   const roomsByFloor = {};
   rooms.forEach((room) => {
@@ -69,21 +69,13 @@ export default function HotelGrid({ rooms, newlyBookedIds, loading }) {
                       key={room.roomNumber}
                       room={room}
                       isNew={newlyBookedIds.has(room.roomNumber)}
+                      isSelected={selectedRooms?.has(room.roomNumber)}
+                      onToggleSelect={onToggleSelect}
                     />
                   ) : (
                     <div key={`placeholder-${idx}`} className={styles.placeholder} />
                   )
                 )}
-              </div>
-
-              {/* Availability bar */}
-              <div className={styles.availabilityBar}>
-                <div
-                  className={styles.availabilityFill}
-                  style={{
-                    width: `${(availableCount / Math.max(totalCount, 1)) * 100}%`,
-                  }}
-                />
               </div>
             </div>
           );

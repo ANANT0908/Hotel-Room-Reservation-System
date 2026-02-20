@@ -3,9 +3,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 12px 24px;
+  padding: 14px 20px;
   border-bottom: 1px solid var(--border-subtle);
   background-color: var(--bg-surface);
+  flex-wrap: wrap;
+  row-gap: 10px;
 }
 
 .leftGroup {
@@ -13,6 +15,38 @@
   align-items: center;
   gap: 12px;
   flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.bookingSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.selectionDisplay {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background-color: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent-dim);
+  min-width: 100px;
+}
+
+.selectedCount {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-light);
+  font-family: var(--font-mono);
+}
+
+.selectedLabel {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .label {
@@ -24,36 +58,58 @@
   white-space: nowrap;
 }
 
-.countSelector {
+.inputGroup {
   display: flex;
-  gap: 4px;
-  padding: 4px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
   background-color: var(--bg-elevated);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
-}
-
-.countButton {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  background-color: var(--bg-surface);
-  color: var(--text-secondary);
-  font-weight: 600;
-  font-size: 12px;
   transition: all 0.2s;
-  cursor: pointer;
 }
 
-.countButton:hover {
+.inputGroup:focus-within {
+  border-color: var(--accent);
+  background-color: var(--bg-elevated);
+}
+
+.countInput {
+  width: 50px;
+  height: 32px;
+  padding: 4px 8px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.countInput:focus {
   background-color: var(--bg-hover);
+  border-radius: 4px;
 }
 
-.countButton.active {
-  background-color: var(--accent-dim);
-  color: var(--accent-light);
-  border-bottom: 2px solid var(--accent);
+/* Remove default spinner from number input */
+.countInput::-webkit-outer-spin-button,
+.countInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+
+.countInput[type=number] {
+  -moz-appearance: textfield;
+}
+
+.maxLabel {
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
 
 .bookButton {
   padding: 8px 16px;
@@ -64,17 +120,42 @@
   font-size: 12px;
   white-space: nowrap;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(124, 109, 250, 0.3);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(124, 109, 250, 0.25);
+  border: none;
 }
 
 .bookButton:hover:not(:disabled) {
-  box-shadow: 0 8px 24px rgba(124, 109, 250, 0.5);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(124, 109, 250, 0.4);
+  transform: translateY(-1px);
 }
 
 .bookButton:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.clearButton {
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  font-weight: 600;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearButton:hover:not(:disabled) {
+  background-color: var(--bg-hover);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.clearButton:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -95,27 +176,22 @@
   flex: 0 0 auto;
 }
 
-.randomButton,
-.resetButton {
+.randomButton {
   padding: 8px 16px;
   border-radius: var(--radius-md);
   font-weight: 600;
   font-size: 12px;
   white-space: nowrap;
   cursor: pointer;
-  transition: all 0.2s;
-  border: 1px solid transparent;
-}
-
-.randomButton {
+  transition: all 0.2s ease;
   background-color: transparent;
-  color: var(--amber);
-  border-color: var(--amber-border);
-  border: 1px solid var(--amber-border);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
 }
 
 .randomButton:hover:not(:disabled) {
-  background-color: var(--amber-dim);
+  background-color: var(--accent-dim);
+  color: var(--accent-light);
 }
 
 .randomButton:disabled {
@@ -124,9 +200,15 @@
 }
 
 .resetButton {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
   background-color: transparent;
   color: var(--text-secondary);
-  border-color: var(--border-subtle);
   border: 1px solid var(--border-subtle);
 }
 
@@ -160,10 +242,40 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .controls {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .leftGroup {
+    gap: 8px;
+  }
+
+  .infoChip {
+    flex: 1;
+    min-width: 200px;
+    font-size: 11px;
+  }
+}
+
 @media (max-width: 768px) {
   .controls {
     padding: 12px 16px;
-    gap: 12px;
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  .leftGroup {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .bookingSection {
+    flex: 1;
+    min-width: 150px;
   }
 
   .infoChip {
@@ -171,30 +283,47 @@
   }
 
   .bookButton,
-  .randomButton,
+  .clearButton,
   .resetButton {
     padding: 6px 12px;
     font-size: 11px;
+  }
+
+  .rightGroup {
+    width: 100%;
   }
 }
 
 @media (max-width: 600px) {
   .controls {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  .leftGroup {
+    width: 100%;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
-  .leftGroup,
-  .rightGroup {
+  .bookingSection,
+  .bookButton,
+  .clearButton {
     width: 100%;
   }
 
-  .bookButton {
-    width: 100%;
+  .selectionDisplay {
+    flex: 1;
   }
 
-  .randomButton,
   .resetButton {
     flex: 1;
+    min-width: 100px;
+  }
+
+  .rightGroup {
+    width: 100%;
+    display: flex;
+    gap: 6px;
   }
 }

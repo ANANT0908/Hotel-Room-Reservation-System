@@ -1,7 +1,7 @@
 .hotelGrid {
   display: flex;
   gap: 20px;
-  padding: 24px;
+  padding: 20px 24px;
   flex: 1;
   overflow: auto;
 }
@@ -66,28 +66,39 @@
 .floorsColumn {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   flex: 1;
   min-width: 0;
+  padding: 0 8px;
 }
 
 .floorRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   height: 60px;
+  transition: all 0.2s ease;
+}
+
+.floorRow:hover .roomStrip {
+  border-color: var(--accent-dim);
+  background-color: var(--bg-hover);
 }
 
 .floorLabel {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
-  width: 40px;
+  width: 45px;
+  height: 100%;
   flex: 0 0 auto;
   font-weight: 600;
   font-size: 12px;
   color: var(--text-secondary);
+  border-right: 1px solid var(--border-subtle);
+  padding-right: 12px;
 }
 
 .topBadge {
@@ -100,14 +111,16 @@
 
 .roomStrip {
   display: flex;
-  gap: 5px;
-  padding: 5px 6px;
+  gap: 6px;
+  padding: 8px 10px;
   background-color: var(--bg-surface);
   border-radius: 10px;
   border: 1px solid var(--border-subtle);
   flex: 1;
   overflow-x: auto;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  align-items: center;
+  height: 100%;
 }
 
 .roomStrip.booked {
@@ -127,28 +140,12 @@
   opacity: 0.3;
 }
 
-.availabilityBar {
-  width: 40px;
-  height: 3px;
-  background-color: var(--bg-elevated);
-  border-radius: 2px;
-  overflow: hidden;
-  flex: 0 0 auto;
-}
-
-.availabilityFill {
-  height: 100%;
-  background-color: var(--green);
-  border-radius: 2px;
-  transition: width 0.5s ease;
-}
-
 /* Legend sidebar */
 .legend {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 160px;
+  width: 220px;
   flex: 0 0 auto;
   padding: 16px;
   background-color: var(--bg-surface);
@@ -268,26 +265,30 @@
   .liftColumn {
     width: 48px;
   }
+
+  .floorRow {
+    height: 50px;
+  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .hotelGrid {
     padding: 12px;
     gap: 8px;
   }
 
   .floorRow {
-    height: 50px;
+    height: 45px;
   }
 
   .placeholder {
-    width: 30px;
-    height: 30px;
-    flex-basis: 30px;
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
   }
 
   .liftColumn {
-    width: 40px;
+    width: 44px;
   }
 
   .liftLabel {
@@ -296,6 +297,92 @@
 
   .floorLabel {
     font-size: 10px;
-    width: 30px;
+    width: 32px;
+  }
+
+  .roomStrip {
+    padding: 4px 5px;
+    border-radius: 8px;
+  }
+
+  .availabilityBar {
+    width: 36px;
   }
 }
+
+@media (max-width: 600px) {
+  .hotelGrid {
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .floorRow {
+    height: 40px;
+  }
+
+  .placeholder {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+
+  .liftColumn {
+    width: 36px;
+  }
+
+  .liftLabel {
+    font-size: 9px;
+    height: 20px;
+  }
+
+  .liftElevator {
+    font-size: 18px;
+  }
+
+  .floorLabel {
+    font-size: 9px;
+    width: 28px;
+    gap: 1px;
+  }
+
+  .topBadge {
+    font-size: 7px;
+  }
+
+  .roomStrip {
+    padding: 3px 4px;
+    gap: 3px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hotelGrid {
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .floorRow {
+    height: 36px;
+  }
+
+  .placeholder {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+
+  .liftColumn {
+    width: 32px;
+  }
+
+  .liftLabel {
+    font-size: 8px;
+    height: 18px;
+  }
+
+  .floorLabel {
+    font-size: 8px;
+    width: 24px;
+  }
+}
+

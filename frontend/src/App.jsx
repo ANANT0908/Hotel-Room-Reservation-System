@@ -16,10 +16,13 @@ function App() {
     error,
     lastBooking,
     newlyBookedIds,
+    selectedRooms,
     clearError,
     bookRooms,
-    randomOccupancy,
+    toggleRoomSelection,
+    clearSelection,
     resetAll,
+    randomizeOccupancy,
   } = useHotel();
 
   return (
@@ -34,10 +37,12 @@ function App() {
       {/* Controls */}
       <Controls
         onBook={bookRooms}
-        onRandom={randomOccupancy}
         onReset={resetAll}
+        onRandomize={randomizeOccupancy}
         actionLoading={actionLoading}
         stats={stats}
+        selectedRooms={selectedRooms}
+        onClearSelection={clearSelection}
       />
 
       {/* Result banner */}
@@ -45,7 +50,13 @@ function App() {
 
       {/* Main body */}
       <div className={styles.body}>
-        <HotelGrid rooms={rooms} newlyBookedIds={newlyBookedIds} loading={loading} />
+        <HotelGrid 
+          rooms={rooms} 
+          newlyBookedIds={newlyBookedIds} 
+          loading={loading}
+          selectedRooms={selectedRooms}
+          onToggleSelect={toggleRoomSelection}
+        />
         <BookingHistory bookings={bookings} />
       </div>
     </div>

@@ -37,6 +37,7 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
+  gap: 0;
 }
 
 /* Responsive */
@@ -50,6 +51,18 @@
   }
 }
 
+@media (max-width: 768px) {
+  .bgGlow1 {
+    width: 400px;
+    height: 400px;
+  }
+
+  .bgGlow2 {
+    width: 350px;
+    height: 350px;
+  }
+}
+
 @media (max-width: 600px) {
   .bgGlow1 {
     display: none;
@@ -57,5 +70,20 @@
 
   .bgGlow2 {
     display: none;
+  }
+
+  .body {
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .app {
+    height: auto;
+  }
+
+  .body {
+    min-height: calc(100vh - 56px - 35vh);
   }
 }

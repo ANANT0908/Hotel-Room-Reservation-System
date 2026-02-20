@@ -34,16 +34,16 @@ export default function BookingHistory({ bookings }) {
                 className={styles.bookingCard}
                 style={{ animationDelay: `${index * 30}ms` }}
               >
-                <div className={styles.cardTop}>
-                  <div className={styles.summary}>
-                    <span className={styles.count}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.bookingInfo}>
+                    <span className={styles.roomCount}>
                       {booking.roomCount} room{booking.roomCount !== 1 ? 's' : ''}
                     </span>
                     <span className={styles.separator}>·</span>
-                    <span className={styles.floor}>{booking.floorLabel}</span>
+                    <span className={styles.floorBadge}>{booking.floorLabel}</span>
                   </div>
-                  <div className={styles.meta}>
-                    <span className={styles.travelTimeBadge}>{booking.travelTime} min</span>
+                  <div className={styles.metaInfo}>
+                    <span className={styles.timeTaken}>{booking.travelTime} min</span>
                     <span className={styles.timeAgo}>{timeAgo(booking.createdAt)}</span>
                   </div>
                 </div>

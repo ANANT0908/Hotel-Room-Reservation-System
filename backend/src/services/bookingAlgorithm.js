@@ -159,4 +159,29 @@ function findOptimalRooms(availableRooms, count) {
   return bestResult;
 }
 
-module.exports = { findOptimalRooms, groupTravelTime, travelTimeBetween };
+// Random selection of available rooms
+function findRandomRooms(availableRooms, count) {
+  if (availableRooms.length < count) {
+    return null;
+  }
+
+  // Shuffle array using Fisher-Yates algorithm
+  const shuffled = [...availableRooms];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  // Select first count rooms
+  const selectedRooms = shuffled.slice(0, count);
+
+  // Calculate travel time for the selected rooms
+  const travelTime = groupTravelTime(selectedRooms);
+
+  return {
+    rooms: selectedRooms,
+    travelTime: travelTime,
+  };
+}
+
+module.exports = { findOptimalRooms, findRandomRooms, groupTravelTime, travelTimeBetween };
