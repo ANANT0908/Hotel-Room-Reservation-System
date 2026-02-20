@@ -23,10 +23,23 @@
 }
 
 .label {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--text-muted);
   text-transform: uppercase;
   font-weight: 700;
+  margin-right: 4px;
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.maxLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
 .countInput {
@@ -100,7 +113,32 @@
 .rightGroup {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+
+.randomButton {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.resetButton {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--red);
+}
+
+.resetButton.confirm {
+  background-color: var(--red);
+  color: white;
+  border-color: var(--red);
 }
 
 .utilityBtn {

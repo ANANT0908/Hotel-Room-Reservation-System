@@ -48,11 +48,9 @@ export default function BookingHistory({ bookings }) {
                   </div>
                 </div>
                 <div className={styles.cardBottom}>
-                  {booking.rooms.map((room) => (
-                    <span key={room.roomNumber} className={styles.roomChip}>
-                      {room.roomNumber}
-                    </span>
-                  ))}
+                  <span className={styles.roomListText}>
+                    Rooms: {booking.rooms.map(r => r.roomNumber).join(', ')}
+                  </span>
                 </div>
               </div>
             ))}

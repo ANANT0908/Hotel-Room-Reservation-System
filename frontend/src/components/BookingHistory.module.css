@@ -1,7 +1,7 @@
 .bookingHistory {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 400px;
   background-color: var(--bg-deep);
   border-left: 1px solid var(--border-medium);
   flex: 0 0 auto;
@@ -16,10 +16,12 @@
 }
 
 .title {
-  font-size: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .content {
@@ -52,9 +54,31 @@
 }
 
 .timeTaken {
-  font-size: 9px;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
   color: var(--accent);
+}
+
+.metaInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.timeAgo {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.cardBottom {
+  margin-top: 4px;
+}
+
+.roomListText {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
 }
 
 .roomList {
