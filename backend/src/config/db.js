@@ -7,6 +7,7 @@ const connectDB = async () => {
 
     const connection = await mongoose.connect(mongoURI);
 
+    console.log(`✓ Database connected to: ${connection.connection.host}`);
     logger.info(`✓ Database connected: ${connection.connection.host}:${connection.connection.port}`);
 
     // Reconnection events
@@ -20,6 +21,7 @@ const connectDB = async () => {
 
     return connection;
   } catch (error) {
+    console.error('✗ DATABASE CONNECTION ERROR:', error.message);
     logger.error(`✗ Database connection failed!`);
     logger.error(`Error name: ${error.name}`);
     logger.error(`Error message: ${error.message}`);

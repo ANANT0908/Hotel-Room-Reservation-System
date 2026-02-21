@@ -1,3 +1,4 @@
+console.log('>>> STARTING APP.JS');
 require('dotenv').config();
 require('express-async-errors');
 const express = require('express');
@@ -105,15 +106,21 @@ const autoSeed = async () => {
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
+  console.log('>>> EXECUTING startServer()');
   try {
+    console.log('>>> ATTEMPTING connectDB()');
     await connectDB();
+    console.log('>>> ATTEMPTING autoSeed()');
     await autoSeed();
 
+    console.log(`>>> ATTEMPTING app.listen on port ${PORT}`);
     app.listen(PORT, () => {
+      console.log(`✓ Server fully operational on http://localhost:${PORT}`);
       logger.info(`✓ Server running on http://localhost:${PORT}`);
       logger.info(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
     });
   } catch (error) {
+    console.error('!!! SERVER STARTUP CRASH:', error);
     logger.error(`Server startup failed: ${error.message}`);
     process.exit(1);
   }
