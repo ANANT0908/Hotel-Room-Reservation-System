@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
+const path = require('path');
 const { connectDB } = require('./config/db');
 const Room = require('./models/Room');
 const roomRoutes = require('./routes/roomRoutes');
