@@ -20,7 +20,10 @@ const connectDB = async () => {
 
     return connection;
   } catch (error) {
-    logger.error(`✗ Database connection failed: ${error.message}`);
+    logger.error(`✗ Database connection failed!`);
+    logger.error(`Error name: ${error.name}`);
+    logger.error(`Error message: ${error.message}`);
+    if (error.reason) logger.error(`Reason: ${error.reason}`);
     throw error;
   }
 };

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "build": "npm install --prefix ../frontend && npm run build --prefix ../frontend",
+    "build": "npm install --prefix ../frontend && npm run build --prefix ../frontend && mkdir -p public && cp -r ../frontend/dist/* ./public/",
     "seed": "node src/scripts/seed.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
