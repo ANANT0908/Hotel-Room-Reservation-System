@@ -4,7 +4,6 @@ const { validateBooking } = require('../middleware/validate');
 
 router.get('/rooms', roomController.getRooms);
 router.post('/rooms/book', validateBooking, roomController.bookRooms);
-router.post('/rooms/book-selected', roomController.bookSelected);
 router.post('/rooms/random', roomController.randomOccupancy);
 router.post('/rooms/reset', roomController.resetAll);
 router.get('/bookings', roomController.getBookings);

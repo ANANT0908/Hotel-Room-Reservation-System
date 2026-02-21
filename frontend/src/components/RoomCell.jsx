@@ -1,36 +1,24 @@
 import React from 'react';
 import styles from './RoomCell.module.css';
 
-const RoomCell = React.memo(({ room, isNew, isSelected, onToggleSelect }) => {
+const RoomCell = React.memo(({ room, isNew }) => {
   const statusClass = {
     available: styles.available,
     occupied: styles.occupied,
     booked: styles.booked,
-  }[room.status];
+  }[room.status || 'available'];
 
   const isNewClass = isNew ? styles.new : '';
-  const isSelectedClass = isSelected ? styles.selected : '';
-  const isClickable = room.status === 'available' ? styles.clickable : '';
-
-  const title = `Room ${room.roomNumber} · ${room.status.charAt(0).toUpperCase() + room.status.slice(1)}`;
-
-  const handleClick = () => {
-    if (room.status === 'available') {
-      onToggleSelect?.(room.roomNumber);
-    }
-  };
+  const statusLabel = (room.status || 'available');
+  const title = `Room ${room.roomNumber} · ${statusLabel.charAt(0).toUpperCase() + statusLabel.slice(1)}`;
 
   return (
-    <div 
-      className={`${styles.roomCell} ${statusClass} ${isNewClass} ${isSelectedClass} ${isClickable}`} 
+    <div
+      className={`${styles.roomCell} ${statusClass} ${isNewClass}`}
       title={title}
-      onClick={handleClick}
-      role="button"
-      tabIndex={room.status === 'available' ? 0 : -1}
     >
       <span className={styles.number}>{room.roomNumber}</span>
       <div className={styles.dot} />
-      {isSelected && <div className={styles.checkmark}>✓</div>}
     </div>
   );
 });

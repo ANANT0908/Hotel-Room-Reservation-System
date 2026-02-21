@@ -2,17 +2,19 @@
 // Lift/Stairs are at the left (position 1)
 function travelTimeBetween(roomA, roomB) {
   if (roomA.floor === roomB.floor) {
+    // Horizontal travel: 1 minute per room
     return Math.abs(roomA.position - roomB.position);
   }
   // If floors are different, must go to lift (at position 1)
+  // Vertical travel: 2 minutes per floor
   const vertical = Math.abs(roomA.floor - roomB.floor) * 2;
-  const toLiftA = roomA.position - 1;
-  const toLiftB = roomB.position - 1;
-  return toLiftA + vertical + toLiftB;
+  const horizontal = (roomA.position - 1) + (roomB.position - 1);
+  return vertical + horizontal;
 }
 
 // Total travel time of a group
-// For cross-floor bookings, it's the travel time between the two furthest rooms
+// As per rules, we minimize the total travel time between the first and last room
+// in the booking (which usually means the maximum distance between any two rooms in the set)
 function groupTravelTime(rooms) {
   if (rooms.length <= 1) return 0;
 
@@ -81,17 +83,21 @@ function findOptimalRooms(availableRooms, count) {
     roomsByFloor[room.floor].push(room);
   });
 
-  // Step 1: Same-floor search (Priority 2)
+  // Step 1: Same-floor search (Priority)
+  // We look for the best 'k' rooms on ANY single floor first.
   let bestSameFloor = null;
   let minSameFloorTime = Infinity;
 
   for (const floorStr in roomsByFloor) {
     const floorRooms = roomsByFloor[floorStr].sort((a, b) => a.position - b.position);
     if (floorRooms.length >= k) {
-      // Find k contiguous available rooms on this floor that minimize span
+      // If we have at least k rooms on this floor, we find the subset of k rooms
+      // that are "closest" to each other (minimize span).
+      // Since they are sorted by position, any contiguous sub-array of size k
+      // is a candidate for minimum span on that floor.
       for (let i = 0; i <= floorRooms.length - k; i++) {
         const combo = floorRooms.slice(i, i + k);
-        const time = groupTravelTime(combo);
+        const time = travelTimeBetween(combo[0], combo[k - 1]);
         if (time < minSameFloorTime || (time === minSameFloorTime && isLowerSet(combo, bestSameFloor))) {
           minSameFloorTime = time;
           bestSameFloor = combo;
@@ -101,10 +107,13 @@ function findOptimalRooms(availableRooms, count) {
   }
 
   if (bestSameFloor) {
+    console.log(`[Booking] Found optimal same-floor set for ${k} rooms on floor ${bestSameFloor[0].floor}`);
     return {
       rooms: bestSameFloor,
       travelTime: minSameFloorTime,
     };
+  } else {
+    console.log(`[Booking] No single floor has ${k} available rooms. Proceeding to cross-floor search.`);
   }
 
   // Step 2: Cross-floor search (Priority 3/4)

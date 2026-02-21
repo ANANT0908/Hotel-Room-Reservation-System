@@ -16,14 +16,10 @@ function App() {
     error,
     lastBooking,
     newlyBookedIds,
-    selectedRooms,
     count,
     setCount,
     clearError,
-    bookRooms,
     autoBookRooms,
-    toggleRoomSelection,
-    clearSelection,
     resetAll,
     randomizeOccupancy,
   } = useHotel();
@@ -39,15 +35,12 @@ function App() {
 
       {/* Controls */}
       <Controls
-        onBook={bookRooms}
         onAutoBook={autoBookRooms}
         onReset={resetAll}
         onRandomize={randomizeOccupancy}
         actionLoading={actionLoading}
         stats={stats}
         rooms={rooms}
-        selectedRooms={selectedRooms}
-        onClearSelection={clearSelection}
         count={count}
         setCount={setCount}
       />
@@ -61,8 +54,6 @@ function App() {
           rooms={rooms}
           newlyBookedIds={newlyBookedIds}
           loading={loading}
-          selectedRooms={selectedRooms}
-          onToggleSelect={toggleRoomSelection}
         />
         <BookingHistory bookings={bookings} />
       </div>

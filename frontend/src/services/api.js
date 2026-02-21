@@ -20,7 +20,6 @@ api.interceptors.response.use(
 export const roomsApi = {
   getAll: () => api.get('/rooms'),
   book: (count, mode = 'optimal') => api.post('/rooms/book', { count, mode }),
-  bookSelected: (roomNumbers) => api.post('/rooms/book-selected', { roomNumbers }),
   random: () => api.post('/rooms/random'),
   reset: () => api.post('/rooms/reset'),
   getBookings: () => api.get('/bookings'),

@@ -11,7 +11,6 @@ export const useHotel = () => {
   const [error, setError] = useState(null);
   const [lastBooking, setLastBooking] = useState(null);
   const [newlyBookedIds, setNewlyBookedIds] = useState(new Set());
-  const [selectedRooms, setSelectedRooms] = useState(new Set());
   const [count, setCount] = useState(1);
 
   // Actions
@@ -37,27 +36,6 @@ export const useHotel = () => {
     }
   };
 
-  const bookRooms = async (selectedRoomNumbers) => {
-    try {
-      setActionLoading('book');
-      setError(null);
-      const data = await roomsApi.bookSelected(selectedRoomNumbers);
-      setLastBooking(data.booking);
-      setNewlyBookedIds(new Set(data.booking.rooms));
-      setSelectedRooms(new Set()); // Clear selection after booking
-
-      // Refresh rooms and bookings
-      await fetchRooms(true);
-      await fetchBookings();
-
-      // Clear newly booked indicator after 3 seconds
-      setTimeout(() => setNewlyBookedIds(new Set()), 3000);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setActionLoading(null);
-    }
-  };
 
   const autoBookRooms = async (count) => {
     try {
@@ -66,7 +44,6 @@ export const useHotel = () => {
       const data = await roomsApi.book(count, 'optimal');
       setLastBooking(data.booking);
       setNewlyBookedIds(new Set(data.booking.rooms));
-      setSelectedRooms(new Set());
 
       // Refresh rooms and bookings
       await fetchRooms(true);
@@ -81,17 +58,6 @@ export const useHotel = () => {
     }
   };
 
-  const toggleRoomSelection = (roomNumber) => {
-    const newSelected = new Set(selectedRooms);
-    if (newSelected.has(roomNumber)) {
-      newSelected.delete(roomNumber);
-    } else if (newSelected.size < count) {
-      newSelected.add(roomNumber);
-    }
-    setSelectedRooms(newSelected);
-  };
-
-  const clearSelection = () => setSelectedRooms(new Set());
 
   const resetAll = async () => {
     try {
@@ -120,7 +86,6 @@ export const useHotel = () => {
 
       setLastBooking(null);
       setNewlyBookedIds(new Set());
-      setSelectedRooms(new Set());
 
       // Refresh rooms and bookings
       await fetchRooms(true);
@@ -161,14 +126,10 @@ export const useHotel = () => {
     error,
     lastBooking,
     newlyBookedIds,
-    selectedRooms,
     count,
     setCount,
     clearError,
-    bookRooms,
     autoBookRooms,
-    toggleRoomSelection,
-    clearSelection,
     resetAll,
     randomizeOccupancy,
   };

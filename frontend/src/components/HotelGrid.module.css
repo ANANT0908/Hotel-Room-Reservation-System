@@ -1,9 +1,8 @@
 .hotelGrid {
   display: flex;
-  gap: 20px;
-  padding: 24px;
+  gap: 32px;
+  padding: 32px;
   flex: 1;
-  overflow: auto;
   background-color: var(--bg-void);
 }
 
@@ -54,16 +53,16 @@
 .floorsColumn {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   flex: 1;
-  min-width: 0;
+  min-width: fit-content;
 }
 
 .floorRow {
   display: flex;
   align-items: center;
-  gap: 8px;
-  height: 48px;
+  gap: 12px;
+  height: 52px;
 }
 
 .floorLabel {
@@ -89,13 +88,11 @@
 
 .roomStrip {
   display: flex;
-  gap: 6px;
-  padding: 6px 10px;
+  gap: 8px;
+  padding: 8px 12px;
   background-color: var(--bg-surface);
-  border-radius: 6px;
-  border: 1px solid var(--border-subtle);
-  flex: 1;
-  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
   align-items: center;
   height: 100%;
 }
@@ -113,14 +110,13 @@
 .legend {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 240px;
+  gap: 24px;
+  width: 260px;
   flex: 0 0 auto;
   padding: 24px;
   background-color: var(--bg-surface);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-medium);
-  overflow-y: auto;
 }
 
 .legendSection {

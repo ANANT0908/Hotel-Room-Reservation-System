@@ -14,17 +14,17 @@ const logger = require('./utils/logger');
 const app = express();
 
 // Middleware order
-app.use(helmet()); // Security headers
+app.use(helmet());
 
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
   })
-); // CORS
+);
 
-app.use(express.json({ limit: '10kb' })); // Body parsing
+app.use(express.json({ limit: '10kb' }));
 
-// HTTP logging via winston
+// HTTP logging
 app.use(
   morgan('dev', {
     stream: {
@@ -33,14 +33,12 @@ app.use(
   })
 );
 
-// Rate limiting on API routes
-const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'),
-  max: parseInt(process.env.RATE_LIMIT_MAX || '100'),
-  message: 'Too many requests, please try again later.',
-});
-
-app.use('/api/', limiter);
+// Rate limiting (Disabled by user)
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+// });
+// app.use('/api/', limiter);
 
 // Routes
 app.use('/api', roomRoutes);
