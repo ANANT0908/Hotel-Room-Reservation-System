@@ -118,7 +118,7 @@
 /* Responsive breakpoints */
 @media (max-width: 1400px) {
   .roomCell {
-    width: 64px;
+    width: 58px;
     height: 38px;
   }
 
