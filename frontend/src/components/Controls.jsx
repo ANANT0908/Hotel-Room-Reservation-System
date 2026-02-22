@@ -1,3 +1,4 @@
+// Component Sync: Re-applying booking button logic
 import { useState } from 'react';
 import styles from './Controls.module.css';
 

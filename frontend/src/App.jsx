@@ -1,3 +1,4 @@
+// UI Sync: Re-applying latest optimizations
 import { Toaster } from 'react-hot-toast';
 import { useHotel } from './hooks/useHotel';
 import Header from './components/Header';
