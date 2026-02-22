@@ -2,10 +2,34 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
-  height: auto;
+  height: 100vh;
   background-color: var(--bg-void);
-  overflow-x: hidden;
+  overflow: hidden;
+  position: relative;
+}
+
+.bgGlow1,
+.bgGlow2 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.bgGlow1 {
+  top: -100px;
+  left: -100px;
+  background-color: var(--accent);
+}
+
+.bgGlow2 {
+  bottom: -100px;
+  right: -100px;
+  background-color: var(--blue);
 }
 
 .body {
@@ -16,26 +40,36 @@
   background-color: var(--bg-deep);
   scroll-behavior: smooth;
   gap: 0;
+  min-height: 0;
+  /* Crucial for nested flex scrolling */
 }
 
 /* Responsive */
 @media (max-width: 1150px) {
+  .app {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
   .body {
     flex-direction: column;
-    overflow-y: auto;
+    overflow: visible;
     height: auto;
+    flex: none;
   }
 
   .body>*:first-child {
-    flex: 0 0 auto;
+    flex: none;
     width: 100%;
   }
 
   .body>*:last-child {
-    flex: 0 0 auto;
+    flex: none;
     border-top: 1px solid var(--border-medium);
     width: 100% !important;
-    max-height: none;
+    max-height: 50vh;
+    overflow-y: auto;
     margin: 0;
     border-radius: 0;
   }
@@ -44,5 +78,9 @@
 @media (max-width: 600px) {
   .app {
     min-height: 100dvh;
+  }
+
+  .body>*:last-child {
+    max-height: none;
   }
 }

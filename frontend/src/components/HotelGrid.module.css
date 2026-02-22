@@ -3,10 +3,12 @@
   display: flex;
   gap: 24px;
   padding: 24px 32px;
-  flex: 1 1 auto;
+  flex: 1;
   background-color: var(--bg-void);
   overflow: auto;
   min-width: 0;
+  min-height: 0;
+  /* Essential for flex-item scroll */
 }
 
 /* Lift column */
@@ -223,6 +225,32 @@
 
   .legendSection {
     flex: 1 1 150px;
+  }
+
+  .roomStrip {
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .floorLabel {
+    width: 40px;
+    padding-right: 8px;
+    font-size: 11px;
+  }
+
+  .placeholder {
+    width: 44px;
+    height: 26px;
+    flex: 0 0 44px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .hotelGrid {
+    padding: 12px;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
   }
 }
 
