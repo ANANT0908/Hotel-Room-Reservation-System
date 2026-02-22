@@ -21,11 +21,22 @@ export default function HotelGrid({ rooms, newlyBookedIds, loading }) {
 
   return (
     <div className={styles.hotelGrid}>
-      {/* Lift column */}
+      {/* Lift & Stairs column */}
       <div className={styles.liftColumn}>
         <div className={styles.liftLabel}>Lift & Stairs</div>
-        <div className={styles.liftShaft}>
-          <div className={styles.liftElevator}>🛗</div>
+        <div className={styles.liftArea}>
+          <div className={styles.liftShaft}>
+            <div className={styles.liftTrack}>
+              <div className={styles.liftElevator}>
+                <div className={styles.liftLights} />
+              </div>
+            </div>
+          </div>
+          <div className={styles.stairsContainer}>
+            {floors.map((f) => (
+              <div key={`stairs-${f}`} className={styles.stairStep} />
+            ))}
+          </div>
         </div>
         <div className={styles.liftBase} />
       </div>

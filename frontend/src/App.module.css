@@ -58,6 +58,11 @@
   transition: width 0.3s ease, padding 0.3s ease;
 }
 
+.sidebar>*:last-child {
+  margin-top: 8px;
+  /* Extra breathing room for logs */
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 1400px) {
   .sidebar {

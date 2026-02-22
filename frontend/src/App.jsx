@@ -87,7 +87,7 @@ function App() {
           loading={loading}
         />
         <div className={styles.sidebar}>
-          <Legend />
+          <Legend rooms={rooms} />
           <BookingHistory bookings={bookings} />
         </div>
       </div>

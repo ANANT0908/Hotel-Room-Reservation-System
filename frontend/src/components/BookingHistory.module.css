@@ -32,12 +32,17 @@
 
 .content {
   flex: 1;
-  padding: 20px;
+  overflow-y: auto;
+  background-color: var(--bg-surface);
+  /* Clean scrollable container */
+}
+
+.bookingsList {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow-y: auto;
-  background-color: var(--bg-surface);
+  padding: 24px;
+  /* Ensured margins around the list */
 }
 
 .bookingCard {

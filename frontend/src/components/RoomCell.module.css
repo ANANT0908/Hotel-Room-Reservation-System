@@ -54,9 +54,11 @@
   border-color: var(--red-border);
 }
 
-.occupied .number,
-.occupied .dot {
+.occupied .number {
   color: var(--red);
+}
+
+.occupied .dot {
   background-color: var(--red);
 }
 
@@ -66,9 +68,11 @@
   border-color: var(--blue-border);
 }
 
-.booked .number,
-.booked .dot {
+.booked .number {
   color: var(--blue);
+}
+
+.booked .dot {
   background-color: var(--blue);
 }
 
@@ -112,9 +116,9 @@
 }
 
 /* Responsive breakpoints */
-@media (max-width: 900px) {
+@media (max-width: 1400px) {
   .roomCell {
-    width: 48px;
+    width: 64px;
     height: 38px;
   }
 

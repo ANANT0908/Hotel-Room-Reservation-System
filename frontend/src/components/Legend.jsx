@@ -1,6 +1,15 @@
 import styles from './HotelGrid.module.css';
 
-export default function Legend() {
+export default function Legend({ rooms = [] }) {
+  // Calculate counts
+  const availableCount = rooms.filter(r => r.status === 'available').length;
+  const occupiedCount = rooms.filter(r => r.status === 'occupied').length;
+  const bookedCount = rooms.filter(r => r.status === 'booked').length;
+
+  // Note: 'Just Booked' is a transient UI state, we can count the ones that would be highlighted
+  // but usually it refers to rooms with status 'booked' that were recently updated.
+  // For the legend, we'll keep it simple or just show the main counts.
+
   return (
     <div className={styles.legend}>
       <div className={styles.legendSection}>
@@ -8,19 +17,19 @@ export default function Legend() {
         <div className={styles.legendItems}>
           <div className={styles.legendItem}>
             <div className={`${styles.dot} ${styles.available}`} />
-            <span>Available</span>
+            <span>Available ({availableCount})</span>
           </div>
           <div className={styles.legendItem}>
             <div className={`${styles.dot} ${styles.occupied}`} />
-            <span>Occupied</span>
+            <span>Occupied ({occupiedCount})</span>
           </div>
           <div className={styles.legendItem}>
             <div className={`${styles.dot} ${styles.booked}`} />
-            <span>Booked</span>
+            <span>Booked ({bookedCount})</span>
           </div>
           <div className={styles.legendItem}>
             <div className={`${styles.dot} ${styles.justBooked}`} />
-            <span>Just Booked</span>
+            <span>New Booking</span>
           </div>
         </div>
       </div>
