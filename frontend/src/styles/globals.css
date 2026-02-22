@@ -28,20 +28,23 @@
 
   /* Status colors */
   --green: #10b981;
-  --green-dim: rgba(16, 185, 129, 0.08);
-  --green-border: rgba(16, 185, 129, 0.2);
+  --green-dim: rgba(16, 185, 129, 0.1);
+  --green-border: rgba(16, 185, 129, 0.3);
+  --green-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
 
-  --red: #f43f5e;
-  --red-dim: rgba(244, 63, 94, 0.08);
-  --red-border: rgba(244, 63, 94, 0.2);
+  --red: #ff3366;
+  --red-dim: rgba(255, 51, 102, 0.12);
+  --red-border: rgba(255, 51, 102, 0.4);
+  --red-gradient: linear-gradient(135deg, #ff4d6d 0%, #ff3366 100%);
 
   --amber: #f59e0b;
-  --amber-dim: rgba(245, 158, 11, 0.08);
-  --amber-border: rgba(245, 158, 11, 0.2);
+  --amber-dim: rgba(245, 158, 11, 0.1);
+  --amber-border: rgba(245, 158, 11, 0.3);
 
-  --blue: #0ea5e9;
-  --blue-dim: rgba(14, 165, 233, 0.08);
-  --blue-border: rgba(14, 165, 233, 0.2);
+  --blue: #00a2ff;
+  --blue-dim: rgba(0, 162, 255, 0.12);
+  --blue-border: rgba(0, 162, 255, 0.4);
+  --blue-gradient: linear-gradient(135deg, #00d4ff 0%, #00a2ff 100%);
 
   /* Typography */
   --font-display: 'Inter', system-ui, -apple-system, sans-serif;
