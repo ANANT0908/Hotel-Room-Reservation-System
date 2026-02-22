@@ -43,7 +43,7 @@ export const useHotel = () => {
   const autoBookRooms = async (count) => {
     // Availability check
     if (count > stats.available) {
-      toast.error(`room not available, only ${stats.available} rooms available`, {
+      toast.error(`Requested ${count} rooms, but only ${stats.available} are available`, {
         duration: 5000,
         position: 'top-center',
         icon: '🚫',
