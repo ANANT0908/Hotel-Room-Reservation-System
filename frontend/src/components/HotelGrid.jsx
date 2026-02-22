@@ -32,13 +32,7 @@ export default function HotelGrid({ rooms, newlyBookedIds, loading }) {
               </div>
             </div>
           </div>
-          <div className={styles.stairsContainer}>
-            {floors.map((f) => (
-              <div key={`stairs-${f}`} className={styles.stairStep} />
-            ))}
-          </div>
         </div>
-        <div className={styles.liftBase} />
       </div>
 
       {/* Floors column */}
