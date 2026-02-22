@@ -10,10 +10,11 @@
 .body {
   display: flex;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   background-color: var(--bg-deep);
   scroll-behavior: smooth;
+  gap: 0;
 }
 
 /* Responsive */

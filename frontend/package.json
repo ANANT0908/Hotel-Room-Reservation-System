@@ -14,7 +14,8 @@
     "axios": "^1.6.5",
     "hotel-reservation-backend": "file:../backend",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.6.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",

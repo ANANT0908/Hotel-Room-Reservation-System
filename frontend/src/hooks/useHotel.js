@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { roomsApi } from '../services/api';
 
 export const useHotel = () => {
@@ -22,6 +23,7 @@ export const useHotel = () => {
       setStats(data.stats || {});
     } catch (err) {
       setError(err.message);
+      toast.error(`Fetch failed: ${err.message}`);
     } finally {
       if (!silent) setLoading(false);
     }
@@ -38,12 +40,27 @@ export const useHotel = () => {
 
 
   const autoBookRooms = async (count) => {
+    // Availability check
+    if (count > stats.available) {
+      toast.error(`room not available, only ${stats.available} rooms available`, {
+        duration: 5000,
+        position: 'top-center',
+        icon: '🚫',
+      });
+      return;
+    }
+
     try {
       setActionLoading('book');
       setError(null);
       const data = await roomsApi.book(count, 'optimal');
       setLastBooking(data.booking);
       setNewlyBookedIds(new Set(data.booking.rooms));
+
+      toast.success(
+        `Booked ${data.booking.rooms.length} room${data.booking.rooms.length !== 1 ? 's' : ''} on ${data.booking.floorLabel}`,
+        { icon: '🏨' }
+      );
 
       // Refresh rooms and bookings
       await fetchRooms(true);
@@ -53,6 +70,7 @@ export const useHotel = () => {
       setTimeout(() => setNewlyBookedIds(new Set()), 3000);
     } catch (err) {
       setError(err.message);
+      toast.error(err.message || 'Booking failed');
     } finally {
       setActionLoading(null);
     }
@@ -68,11 +86,14 @@ export const useHotel = () => {
       setLastBooking(null);
       setNewlyBookedIds(new Set());
 
+      toast.success('All rooms reset to available', { icon: '🧹' });
+
       // Refresh rooms and bookings
       await fetchRooms(true);
       await fetchBookings();
     } catch (err) {
       setError(err.message);
+      toast.error(err.message || 'Reset failed');
     } finally {
       setActionLoading(null);
     }
@@ -87,11 +108,14 @@ export const useHotel = () => {
       setLastBooking(null);
       setNewlyBookedIds(new Set());
 
+      toast.success('Random occupancy generated', { icon: '🎲' });
+
       // Refresh rooms and bookings
       await fetchRooms(true);
       await fetchBookings();
     } catch (err) {
       setError(err.message);
+      toast.error(err.message || 'Randomization failed');
     } finally {
       setActionLoading(null);
     }

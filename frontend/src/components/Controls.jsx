@@ -69,7 +69,7 @@ export default function Controls({ onAutoBook, onReset, onRandomize, actionLoadi
         <button
           className={styles.autoButton}
           onClick={handleAutoBookClick}
-          disabled={actionLoading === 'book' || count < 1 || count > maxAvailable}
+          disabled={actionLoading === 'book' || count < 1}
           title={`Automatically find and book best ${count} rooms`}
         >
           {actionLoading === 'book' ? (

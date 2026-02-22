@@ -1,9 +1,11 @@
 .hotelGrid {
   display: flex;
   gap: 32px;
-  padding: 32px;
-  flex: 1;
+  padding: 24px 48px;
+  flex: 1 1 auto;
   background-color: var(--bg-void);
+  overflow: auto;
+  min-width: 0;
 }
 
 /* Lift column */
@@ -53,16 +55,17 @@
 .floorsColumn {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  flex: 1;
-  min-width: fit-content;
+  gap: 6px;
+  flex: 0 1 auto;
+  min-width: min-content;
 }
 
 .floorRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 52px;
+  height: 42px;
+  width: fit-content;
 }
 
 .floorLabel {
@@ -70,53 +73,59 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  width: 40px;
+  width: 50px;
   height: 100%;
   flex: 0 0 auto;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-  border-right: 1px solid var(--border-subtle);
-  padding-right: 8px;
+  border-right: 2px solid var(--border-medium);
+  padding-right: 12px;
+  background-color: var(--bg-deep);
 }
 
 .topBadge {
   font-size: 8px;
   color: var(--accent);
   font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .roomStrip {
   display: flex;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 12px;
+  padding: 0 16px;
   background-color: var(--bg-surface);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-medium);
   align-items: center;
   height: 100%;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .placeholder {
-  width: 34px;
-  height: 34px;
+  width: 52px;
+  height: 30px;
   border: 1px solid var(--border-subtle);
   border-radius: 4px;
-  flex: 0 0 34px;
-  background-color: var(--bg-void);
+  flex: 0 0 52px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Legend sidebar */
 .legend {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 260px;
+  gap: 20px;
+  width: 240px;
   flex: 0 0 auto;
   padding: 24px;
   background-color: var(--bg-surface);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-md);
+  height: fit-content;
+  align-self: flex-start;
 }
 
 .legendSection {
@@ -193,9 +202,9 @@
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .hotelGrid {
-    flex-direction: column;
+    padding: 16px;
   }
 
   .legend {
@@ -203,10 +212,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     order: 10;
+    gap: 16px 32px;
+    padding: 16px;
   }
 
   .legendSection {
-    flex: 1 1 150px;
+    flex: 0 1 auto;
   }
 }
 
@@ -227,20 +238,20 @@
   }
 
   .floorRow {
-    height: 48px;
+    height: 38px;
   }
 
   .placeholder {
-    width: 36px;
-    height: 36px;
-    flex-basis: 36px;
+    width: 34px;
+    height: 28px;
+    flex-basis: 34px;
   }
 }
 
 @media (max-width: 400px) {
   .placeholder {
-    width: 32px;
-    height: 32px;
-    flex-basis: 32px;
+    width: 30px;
+    height: 24px;
+    flex-basis: 30px;
   }
 }

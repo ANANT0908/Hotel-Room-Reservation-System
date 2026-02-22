@@ -1,7 +1,7 @@
+import { Toaster } from 'react-hot-toast';
 import { useHotel } from './hooks/useHotel';
 import Header from './components/Header';
 import Controls from './components/Controls';
-import ResultBanner from './components/ResultBanner';
 import HotelGrid from './components/HotelGrid';
 import BookingHistory from './components/BookingHistory';
 import styles from './App.module.css';
@@ -26,6 +26,38 @@ function App() {
 
   return (
     <div className={styles.app}>
+      {/* Toast notifications */}
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 4000,
+          success: {
+            style: {
+              background: '#064e3b',
+              color: '#34d399',
+              border: '1px solid #059669',
+              maxWidth: '500px',
+              width: 'fit-content',
+              padding: '12px 24px',
+            },
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            style: {
+              background: '#450a0a',
+              color: '#f87171',
+              border: '1px solid #dc2626',
+              maxWidth: '500px',
+              width: 'fit-content',
+              padding: '12px 24px',
+            },
+          },
+        }}
+      />
+
       {/* Ambient background glows */}
       <div className={styles.bgGlow1} />
       <div className={styles.bgGlow2} />
@@ -44,9 +76,6 @@ function App() {
         count={count}
         setCount={setCount}
       />
-
-      {/* Result banner */}
-      <ResultBanner booking={lastBooking} error={error} onDismiss={clearError} />
 
       {/* Main body */}
       <div className={styles.body}>

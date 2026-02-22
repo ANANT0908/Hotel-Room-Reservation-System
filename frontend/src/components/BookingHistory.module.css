@@ -1,15 +1,22 @@
 .bookingHistory {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  background-color: var(--bg-deep);
-  border-left: 1px solid var(--border-medium);
+  width: 340px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
   flex: 0 0 auto;
+  box-shadow: var(--shadow-xl);
+  z-index: 5;
+  margin: 24px;
+  margin-left: 0;
+  overflow: hidden;
 }
 
 .header {
-  padding: 16px;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 20px;
+  background-color: var(--bg-deep);
+  border-bottom: 1px solid var(--border-medium);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,29 +24,37 @@
 
 .title {
   font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-primary);
 }
 
 .content {
   flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  background-color: var(--bg-surface);
+}
+
+.bookingCard {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  transition: transform 0.2s;
 }
 
-.bookingCard {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 4px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.bookingCard:hover {
+  transform: translateX(4px);
+  border-color: var(--accent);
 }
 
 .cardHeader {
