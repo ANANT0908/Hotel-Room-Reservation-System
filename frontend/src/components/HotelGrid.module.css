@@ -1,8 +1,8 @@
 /* Style Sync: Re-applying grid padding and row fits */
 .hotelGrid {
   display: flex;
-  gap: 32px;
-  padding: 24px 48px;
+  gap: 24px;
+  padding: 24px 32px;
   flex: 1 1 auto;
   background-color: var(--bg-void);
   overflow: auto;
@@ -118,7 +118,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 240px;
+  width: 260px;
+  min-width: 200px;
   flex: 0 0 auto;
   padding: 24px;
   background-color: var(--bg-surface);
@@ -206,19 +207,22 @@
 @media (max-width: 1400px) {
   .hotelGrid {
     padding: 16px;
+    gap: 16px;
   }
 
   .legend {
     width: 100%;
+    max-width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-    order: 10;
+    order: -1;
     gap: 16px 32px;
     padding: 16px;
+    align-self: stretch;
   }
 
   .legendSection {
-    flex: 0 1 auto;
+    flex: 1 1 150px;
   }
 }
 

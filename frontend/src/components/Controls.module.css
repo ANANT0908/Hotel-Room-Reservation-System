@@ -2,12 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
   background: var(--bg-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--border-medium);
-  gap: 24px;
+  gap: 16px;
   box-shadow: var(--shadow-lg);
   z-index: 100;
 }
@@ -193,11 +194,11 @@
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 1150px) {
   .controls {
     flex-direction: column;
     align-items: stretch;
-    padding: 10px 16px;
+    padding: 12px 16px;
     gap: 12px;
   }
 
@@ -215,11 +216,19 @@
     border-bottom: 1px solid var(--border-subtle);
   }
 
+  .inputGroup {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
   .bookButton,
   .autoButton,
-  .utilityBtn {
+  .utilityBtn,
+  .randomButton,
+  .resetButton {
     width: 100%;
     padding: 10px;
+    font-size: 13px;
   }
 
   .leftGroup>div:last-child,
@@ -228,5 +237,13 @@
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .leftGroup>div:last-child,
+  .rightGroup {
+    grid-template-columns: 1fr;
   }
 }

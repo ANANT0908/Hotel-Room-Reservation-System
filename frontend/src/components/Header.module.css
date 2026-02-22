@@ -140,7 +140,7 @@
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 1150px) {
   .header {
     height: auto;
     flex-direction: column;
@@ -158,10 +158,12 @@
     width: 100%;
     overflow-x: auto;
     padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .statPill {
     width: 100%;
+    min-width: max-content;
     justify-content: space-between;
     gap: 12px;
     border-radius: 8px;
