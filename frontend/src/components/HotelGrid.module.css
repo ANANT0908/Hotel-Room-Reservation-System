@@ -19,8 +19,9 @@
   flex-direction: column;
   gap: 8px;
   align-items: center;
-  width: 48px;
+  width: 84px;
   flex: 0 0 auto;
+  align-self: stretch;
 }
 
 .liftLabel {
@@ -29,6 +30,7 @@
   font-weight: 600;
   text-transform: uppercase;
   height: 20px;
+  white-space: nowrap;
 }
 
 .liftShaft {
@@ -63,6 +65,8 @@
   gap: 6px;
   flex: 0 1 auto;
   min-width: min-content;
+  align-self: stretch;
+  justify-content: center;
 }
 
 .floorRow {
@@ -248,37 +252,70 @@
 
 @media (max-width: 1150px) {
   .hotelGrid {
-    padding: 12px;
-    flex-direction: column;
+    padding: 24px 16px;
+    flex-direction: row;
+    /* Keep lift and floors side-by-side */
     height: auto;
-    overflow: visible;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    justify-content: safe center;
+    /* Center if it fits, scrollable if not */
+    align-items: center;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+  }
+
+  /* Ensure padding-right is respected in scroll */
+  .hotelGrid::after {
+    content: '';
+    flex: 0 0 16px;
+    height: 1px;
+  }
+
+  .floorsColumn {
+    width: max-content;
+    flex: 0 0 auto;
   }
 }
 
 @media (max-width: 600px) {
   .hotelGrid {
-    padding: 8px;
+    padding: 16px 4px;
     gap: 8px;
   }
 
   .liftColumn {
-    width: 36px;
+    width: 32px;
+    gap: 4px;
+  }
+
+  .liftLabel {
+    font-size: 7px;
+    height: 14px;
+    letter-spacing: -0.5px;
   }
 
   .floorLabel {
-    width: 32px;
-    font-size: 10px;
+    width: 28px;
+    font-size: 9px;
     padding-right: 4px;
   }
 
   .floorRow {
-    height: 38px;
+    height: 36px;
+    gap: 4px;
+  }
+
+  .roomStrip {
+    gap: 4px;
+    padding: 0 4px;
   }
 
   .placeholder {
-    width: 34px;
-    height: 28px;
-    flex-basis: 34px;
+    width: 28px;
+    height: 20px;
+    flex-basis: 28px;
   }
 }
 

@@ -224,14 +224,14 @@
   .leftGroup {
     width: 100%;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
   }
 
   .bookingSection {
     width: 100%;
     border-right: none;
     justify-content: space-between;
-    padding-bottom: 8px;
+    padding-bottom: 12px;
     border-bottom: 1px solid var(--border-subtle);
   }
 
@@ -246,8 +246,12 @@
   .randomButton,
   .resetButton {
     width: 100%;
-    padding: 10px;
-    font-size: 13px;
+    padding: 12px;
+    font-size: 14px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .leftGroup>div:last-child,
@@ -259,10 +263,21 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
 
   .leftGroup>div:last-child,
   .rightGroup {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .bookingSection {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .inputGroup {
+    justify-content: center;
   }
 }

@@ -55,6 +55,16 @@
   height: 100%;
   overflow: hidden;
   z-index: 5;
+  transition: width 0.3s ease, padding 0.3s ease;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1400px) {
+  .sidebar {
+    width: 320px;
+    padding: 20px;
+    padding-left: 0;
+  }
 }
 
 /* Responsive */
@@ -63,30 +73,39 @@
     height: auto;
     min-height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .body {
     flex-direction: column;
-    overflow: visible;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: auto;
     flex: none;
+    align-items: stretch;
+    /* Change from center to stretch */
   }
 
   .body>*:first-child {
-    flex: none;
     width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
-  .body>*:last-child {
-    flex: none;
-    border-top: 1px solid var(--border-medium);
+  .sidebar {
     width: 100% !important;
-    max-height: none;
-    overflow: visible;
-    margin: 0;
-    padding: 20px;
-    border-radius: 0;
-    gap: 20px;
+    padding: 24px !important;
+    height: auto;
+    border-top: 1px solid var(--border-medium);
+    background-color: var(--bg-surface);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 16px !important;
+    gap: 24px;
   }
 }
 

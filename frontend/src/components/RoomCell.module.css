@@ -140,28 +140,28 @@
 
 @media (max-width: 600px) {
   .roomCell {
-    width: 34px;
-    height: 28px;
+    width: 30px;
+    height: 26px;
   }
 
   .number {
-    font-size: 7px;
+    font-size: 6px;
   }
 
   .dot {
-    width: 3px;
-    height: 3px;
+    width: 2px;
+    height: 2px;
   }
 }
 
 @media (max-width: 400px) {
   .roomCell {
-    width: 30px;
+    width: 28px;
     height: 24px;
   }
 
   .number {
-    font-size: 6px;
+    font-size: 5px;
   }
 
   .roomCell:hover {
