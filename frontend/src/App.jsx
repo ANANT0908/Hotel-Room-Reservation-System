@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Controls from './components/Controls';
 import HotelGrid from './components/HotelGrid';
 import BookingHistory from './components/BookingHistory';
+import Legend from './components/Legend';
 import styles from './App.module.css';
 
 function App() {
@@ -85,7 +86,10 @@ function App() {
           newlyBookedIds={newlyBookedIds}
           loading={loading}
         />
-        <BookingHistory bookings={bookings} />
+        <div className={styles.sidebar}>
+          <Legend />
+          <BookingHistory bookings={bookings} />
+        </div>
       </div>
     </div>
   );

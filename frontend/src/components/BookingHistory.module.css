@@ -2,15 +2,13 @@
 .bookingHistory {
   display: flex;
   flex-direction: column;
-  width: 340px;
+  width: 100%;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  flex: 0 0 auto;
+  flex: 1;
+  min-height: 0;
   box-shadow: var(--shadow-xl);
-  z-index: 5;
-  margin: 24px;
-  margin-left: 0;
   overflow: hidden;
 }
 

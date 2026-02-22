@@ -44,6 +44,19 @@
   /* Crucial for nested flex scrolling */
 }
 
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  flex: 0 0 auto;
+  gap: 16px;
+  padding: 24px;
+  padding-left: 0;
+  height: 100%;
+  overflow: hidden;
+  z-index: 5;
+}
+
 /* Responsive */
 @media (max-width: 1150px) {
   .app {
@@ -68,10 +81,12 @@
     flex: none;
     border-top: 1px solid var(--border-medium);
     width: 100% !important;
-    max-height: 50vh;
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
     margin: 0;
+    padding: 20px;
     border-radius: 0;
+    gap: 20px;
   }
 }
 
